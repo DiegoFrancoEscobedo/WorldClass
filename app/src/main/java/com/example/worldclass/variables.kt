@@ -22,13 +22,16 @@ fun main() {
     println(add())
     println(product(5, 8))
     printArray(names)
+
+    val numbers = arrayOf(1,2,3,4,5,6,7,8,9,10)
+    isEven(numbers)
 }
 
 //Función para sumar dos numeros
     fun add():Int{
         val x = 10
         val y = 5
-        return(x+y)
+        return(x + y)
     }
 
 //Función para multiplicar dos numeros
@@ -41,6 +44,16 @@ fun main() {
         println(names)
         for(name in names){
             println("Hello $name")
+        }
+    }
+
+    fun isEven(numbers:Array<Int>){
+        for(number in numbers){
+            if(number % 2 == 0){
+                println("The number $number is even")
+            }else{
+                println("The number $number is odd")
+            }
         }
     }
 
