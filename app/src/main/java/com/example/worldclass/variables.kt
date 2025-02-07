@@ -25,6 +25,15 @@ fun main() {
 
     val numbers = arrayOf(1,2,3,4,5,6,7,8,9,10)
     isEven(numbers)
+
+    println(getDay(1))
+
+    val person = Person("Andrea", 28)
+
+    person.dispalyInformation()
+
+    println(person.name)
+    println(person.age)
 }
 
 //Función para sumar dos numeros
@@ -57,6 +66,30 @@ fun main() {
         }
     }
 
+    fun getDay(day:Int):String{
+        var name= ""
+
+
+        when(day){
+            1 -> name = "Monday"
+//Abajo de un valor le tiene que seguir otro valor no puede ir la secuencia valor, else, valor
+            2 -> name = "Tuesday"
+            3 -> name = "Wednesday"
+            4 -> name = "Thursday"
+            5 -> name = "Friday"
+            6 -> name = "Saturday"
+            7 -> name = "Sunday"
+            else -> name= "Incorrect value"
+
+        }
+        return name
+    }
+
+    class Person(val name:String, val age:Int){
+        fun dispalyInformation(){
+            println("Su nombre es $name y su edad es $age")
+        }
+    }
 
 
 
