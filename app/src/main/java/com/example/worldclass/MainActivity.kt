@@ -45,6 +45,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.worldclass.ui.screens.HomeScreen
 import com.example.worldclass.ui.screens.MainMenuScreen
 import com.example.worldclass.ui.screens.TestScreen
+import com.example.worldclass.ui.screens.TwitchInterface
 import com.example.worldclass.ui.theme.WorldClassTheme
 
 class MainActivity : ComponentActivity() {
@@ -58,31 +59,31 @@ class MainActivity : ComponentActivity() {
                 ComposeMultiScreenApp()
 
 
-
-
             }
         }
     }
 
 
 }
-    @Composable
-    fun ComposeMultiScreenApp(){ //Manda a llamar a una clase
-        val navController = rememberNavController()
-        SetupNavGraph(navController= navController)
+
+@Composable
+fun ComposeMultiScreenApp() { //Manda a llamar a una clase
+    val navController = rememberNavController()
+    SetupNavGraph(navController = navController)
+
+}
+
+@Composable
+fun SetupNavGraph(navController: NavHostController) {
+    NavHost(navController = navController, startDestination = "main_menu") {
+        composable("main_menu") { MainMenuScreen(navController) } //Se importa la clase
+        composable("home_screen") { HomeScreen(navController) } //Se importa la clase
+        composable("test_screen") { TestScreen(navController) } //Se importa la clase
+        composable("twitch_interface") { TwitchInterface(navController) } //Se importa la clase
 
     }
 
-    @Composable
-    fun SetupNavGraph(navController:NavHostController){
-        NavHost(navController = navController, startDestination = "main_menu"){
-            composable("main_menu"){ MainMenuScreen(navController) } //Se importa la clase
-            composable("home_screen"){ HomeScreen(navController) } //Se importa la clase
-            composable("test_screen"){ TestScreen(navController) } //Se importa la clase
-
-        }
-
-    }
+}
 
 
 

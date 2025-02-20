@@ -34,7 +34,7 @@ import androidx.navigation.NavHostController
 import com.example.worldclass.R
 
 @Composable
-fun HomeScreen(navController: NavHostController) {
+fun TwitchInterface(navController: NavHostController) {
     topbar()
     Column(
         modifier = Modifier
@@ -44,20 +44,15 @@ fun HomeScreen(navController: NavHostController) {
 
 
     ) {
-        ContentOne()
-        ContentTwo()
-        ContentOne()
-        ContentTwo()
-        ContentOne()
-        ContentTwo()
-
+        Content1()
+        Content2()
     }
 
 }
 
 @Preview(showBackground = true)
 @Composable
-fun ContentOne() {
+fun Content1() {
     Card(
         modifier = Modifier
             .background(Color.LightGray)
@@ -96,7 +91,7 @@ fun ContentOne() {
 
 @Preview(showBackground = true)
 @Composable
-fun ContentTwo() {
+fun Content2() {
     Card(
         modifier = Modifier
             .background(Color.LightGray)
@@ -138,7 +133,7 @@ fun ContentTwo() {
 
 @Preview(showBackground = true)
 @Composable
-fun topbar() {
+fun topbar1() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
