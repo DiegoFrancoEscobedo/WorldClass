@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -47,24 +48,44 @@ import androidx.compose.material.icons.filled.Circle
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PhotoCameraFront
 import androidx.compose.ui.draw.clip
+import com.example.worldclass.ui.theme.MediumDarkGray
 import com.example.worldclass.ui.theme.StrongPurple
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.filled.ContentCopy
+import androidx.compose.material.icons.filled.Explore
+import androidx.compose.material.icons.filled.Favorite
+import com.example.worldclass.ui.theme.Purple
 
 
 @Composable
 fun TwitchInterface(navController: NavHostController) {
-    topbar1()
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(0.dp, 60.dp, 0.dp, 0.dp)
-            .verticalScroll(rememberScrollState())
-
-
+    Box(
+        modifier = Modifier.fillMaxSize()
     ) {
-        FirstContent()
+        Column {
+            topbar1()
+
+            Column(
+                modifier = Modifier
+                    .weight(1f) // Hace que esta sección ocupe el espacio disponible entre las barras
+                    .verticalScroll(rememberScrollState())
+            ) {
+                FirstContent()
+                SecondContent()
+                ThirdContent()
+                FourthContent()
+                FifthContent()
+            }
+
+            downbar1()
+        }
     }
 
+
 }
+
 
 @Preview(showBackground = true)
 @Composable
@@ -72,15 +93,15 @@ fun topbar1() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(60.dp)
-            .padding(10.dp),
-        verticalAlignment = Alignment.CenterVertically // C
+            .height(55.dp)
+            .padding(start = 17.dp, top = 0.dp, end = 10.dp),
+        verticalAlignment = Alignment.CenterVertically
 
     ) {
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
-                .size(40.dp) // Tamaño del círculo
+                .size(32.dp) // Tamaño del círculo
                 .background(StrongPurple, shape = CircleShape) // Fondo circular
         ) {
             Icon(
@@ -88,7 +109,7 @@ fun topbar1() {
                 contentDescription = "Person Icon",
                 tint = Color.White,
                 modifier = Modifier
-                    .size(30.dp)
+                    .size(26.dp)
 
             )
 
@@ -97,62 +118,148 @@ fun topbar1() {
 
         Spacer(modifier = Modifier.weight(1f))
 
-        Box(
-            contentAlignment = Alignment.Center,
 
-        ) {
-            Icon(
-                Icons.Filled.PhotoCameraFront,
-                contentDescription = "Photo Camera Icon",
-                tint = Color.Black,
-                modifier = Modifier
-                    .size(45.dp)
+        Icon(
+            Icons.Filled.PhotoCameraFront,
+            contentDescription = "Photo Camera Icon",
+            tint = Color.Black,
+            modifier = Modifier
+                .size(28.dp)
+        )
 
-            )
-            Box(
-                modifier = Modifier
-                    .size(15.dp) // Ajusta el tamaño para que cubra bien
-                    .background(Color.White)
-                    .offset(y = 30.dp)
-            )
-
-
-        }
-
-        Spacer(modifier = Modifier.width(15.dp))
+        Spacer(modifier = Modifier.width(22.dp))
 
         Icon(
             Icons.Filled.MailOutline,
             contentDescription = "Mail Icon",
             tint = Color.Black,
             modifier = Modifier
-                .size(45.dp)
+                .size(27.dp)
 
         )
 
-        Spacer(modifier = Modifier.width(15.dp))
+        Spacer(modifier = Modifier.width(22.dp))
 
         Icon(
             Icons.Filled.ChatBubbleOutline,
             contentDescription = "Chat Bubble Icon",
             tint = Color.Black,
             modifier = Modifier
-                .size(45.dp)
-
+                .size(25.dp)
         )
 
-        Spacer(modifier = Modifier.width(15.dp))
+        Spacer(modifier = Modifier.width(22.dp))
 
         Icon(
             Icons.Filled.Search,
             contentDescription = "Search Icon",
             tint = Color.Black,
             modifier = Modifier
-                .size(45.dp)
+                .size(27.dp)
 
         )
     }
 }
+
+
+@Preview(showBackground = true)
+@Composable
+fun downbar1() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(55.dp)
+            .background(Color.White)
+            .padding(start = 32.dp, top = 5.dp, end = 5.dp),
+        verticalAlignment = Alignment.CenterVertically
+
+    ) {
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
+        ){
+            Icon(
+                Icons.Filled.Favorite,
+                contentDescription = "Heart Icon",
+                tint = Purple,
+                modifier = Modifier
+                    .size(25.dp)
+            )
+
+            Text(
+                text = "Siguiendo",
+                lineHeight = 14.sp,
+                fontWeight = FontWeight.W600,
+                color = Purple,
+                fontSize = 13.sp,
+                letterSpacing = (.1).sp,
+                modifier = Modifier
+                    .padding(top = 2.dp)
+            )
+
+        }
+
+
+        Spacer(modifier = Modifier.width(70.dp))
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
+        ){
+            Icon(
+                Icons.Filled.Explore,
+                contentDescription = "Compass Icon",
+                tint = Color.Black,
+                modifier = Modifier
+                    .size(25.dp)
+
+            )
+
+            Text(
+                text = "Descubrir",
+                lineHeight = 14.sp,
+                fontWeight = FontWeight.W500,
+                color = Color.Black,
+                fontSize = 12.sp,
+                letterSpacing = (.1).sp,
+                modifier = Modifier
+                    .padding(top = 2.dp)
+            )
+
+
+        }
+
+        Spacer(modifier = Modifier.width(85.dp))
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
+        ){
+
+            Icon(
+                Icons.Filled.ContentCopy,
+                contentDescription = "Content Copy Icon",
+                tint = Color.Black,
+                modifier = Modifier
+                    .size(23.dp)
+            )
+
+            Text(
+                text = "Explorar",
+                lineHeight = 14.sp,
+                fontWeight = FontWeight.W500,
+                color = Color.Black,
+                fontSize = 12.sp,
+                letterSpacing = (.1).sp,
+                modifier = Modifier
+                    .padding(top = 2.dp)
+            )
+
+
+        }
+
+
+    }
+}
+
 
 @Preview(showBackground = true)
 @Composable
@@ -165,11 +272,12 @@ fun FirstContent() {
         Text(
             text = "Siguiendo",
             lineHeight = 14.sp,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.W700,
             color = Color.Black,
-            fontSize = 22.sp,
+            fontSize = 36.sp,
+            letterSpacing = (.6).sp,
             modifier = Modifier
-                .padding(start = 10.dp, top = 10.dp, bottom = 15.dp)
+                .padding(start = 17.dp, top = 10.dp, bottom = 31.dp)
         )
 
 
@@ -179,23 +287,24 @@ fun FirstContent() {
             lineHeight = 14.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Black,
-            fontSize = 14.sp,
+            letterSpacing = (.9).sp,
+            fontSize = 20.sp,
             modifier = Modifier
-                .padding(start = 10.dp, bottom = 10.dp)
+                .padding(start = 17.dp, bottom = 18.dp)
         )
 
 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 10.dp)
+                .padding(start = 17.dp)
         ) {
             Column() {
 
                 Image(
                     modifier = Modifier
-                        .width(75.dp)
-                        .height(110.dp),
+                        .width(101.dp)
+                        .height(130.dp),
                     painter = painterResource(R.drawable.pubg),
                     contentDescription = "Imagen de el videojuego PUBG",
                     contentScale = ContentScale.Crop
@@ -204,26 +313,37 @@ fun FirstContent() {
                     text = "PUBG: BATTLE...",
                     lineHeight = 14.sp,
                     fontWeight = FontWeight.Bold,
+                    letterSpacing = (.2).sp,
                     color = Color.Black,
-                    fontSize = 9.sp,
+                    fontSize = 13.sp,
                     modifier = Modifier
+                        .padding(top = 7.dp)
 
                 )
+
+
+
                 Row(
                     verticalAlignment = Alignment.CenterVertically
+
                 ) {
+
+                    Spacer(modifier = Modifier.height(19.dp))
                     Icon(
                         Icons.Filled.Circle,
                         contentDescription = "Circle Icon",
                         tint = Color.Red,
                         modifier = Modifier
-                            .size(8.dp)
+                            .size(11.dp)
+
                     )
                     Text(
                         text = "10 K",
                         lineHeight = 5.sp,
-                        color = Color.DarkGray,
-                        fontSize = 8.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = MediumDarkGray,
+                        letterSpacing = (-0.1).sp,
+                        fontSize = 12.sp,
                         modifier = Modifier
                             .padding(horizontal = 2.dp)
 
@@ -238,37 +358,44 @@ fun FirstContent() {
 
                 Image(
                     modifier = Modifier
-                        .width(75.dp)
-                        .height(110.dp),
+                        .width(101.dp)
+                        .height(130.dp),
                     painter = painterResource(R.drawable.fortnite),
                     contentDescription = "Imagen de el videojuego Fortnite",
                     contentScale = ContentScale.Crop
                 )
+
                 Text(
                     text = "Fortnite",
                     lineHeight = 14.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black,
-                    fontSize = 9.sp,
+                    fontSize = 13.sp,
                     modifier = Modifier
+                        .padding(top = 7.dp)
 
                 )
                 Row(
                     verticalAlignment = Alignment.CenterVertically
+
                 ) {
+                    Spacer(modifier = Modifier.height(19.dp))
+
                     Icon(
                         Icons.Filled.Circle,
                         contentDescription = "Circle Icon",
                         tint = Color.Red,
                         modifier = Modifier
-                            .size(8.dp)
+                            .size(11.dp)
 
                     )
                     Text(
                         text = "27.9 K",
                         lineHeight = 5.sp,
-                        color = Color.DarkGray,
-                        fontSize = 8.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = MediumDarkGray,
+                        letterSpacing = (-0.1).sp,
+                        fontSize = 12.sp,
                         modifier = Modifier
                             .padding(horizontal = 2.dp)
 
@@ -291,39 +418,41 @@ fun SecondContent() {
 
     Column() {
 
-        Spacer(modifier = Modifier.height(height = 1.dp))
+        Spacer(modifier = Modifier.height(height = 40.dp))
 
         Text(
             text = "Canales recomendados para ti",
             lineHeight = 14.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Black,
-            fontSize = 14.sp,
+            letterSpacing = (.6).sp,
+            fontSize = 21.sp,
             modifier = Modifier
-                .padding(10.dp)
+                .padding(start = 17.dp, bottom = 13.dp)
         )
 
 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 10.dp)
+                .padding(start = 17.dp)
         ) {
+
 //Imagen de la pre-vista del video
             Box(
                 modifier = Modifier
-                    .height(110.dp)
+                    .height(75.dp)
             ) {
 
                 Image(
                     modifier = Modifier
-                        .width(175.dp)
-                        .height(110.dp),
-                    painter = painterResource(R.drawable.si),
-                    contentDescription = "Imagen de fondo",
+                        .width(120.dp)
+                        .height(72.dp),
+                    painter = painterResource(R.drawable.auron),
+                    contentDescription = "Imagen de directo",
                     contentScale = ContentScale.Crop,
 
-                )
+                    )
 
 
                 Row(
@@ -335,132 +464,498 @@ fun SecondContent() {
 
                     Box(
                         modifier = Modifier
-                            .size(14.dp)
+                            .size(11.dp)
                             .background(Color.Red, shape = CircleShape)
                     )
 
 
-                    Spacer(modifier = Modifier.width(4.dp))
+                    Spacer(modifier = Modifier.width(3.dp))
 
 
                     Text(
                         text = "251",
                         color = Color.White,
-                        fontSize = 10.sp,
+                        letterSpacing = (-.2).sp,
+                        fontSize = 12.sp,
                         fontWeight = FontWeight.Bold
                     )
                 }
             }
 //Descripción del directo de Twitch
+
+            Spacer(modifier = Modifier.width(16.dp))
+
             Column() {
+
+                Spacer(modifier = Modifier.height(4.dp))
 
                 Row() {
                     Image(
                         modifier = Modifier
                             .size(20.dp)
                             .clip(CircleShape),
-                        painter = painterResource(R.drawable.pubg),
-                        contentDescription = "Imagen de el videojuego PUBG",
+                        painter = painterResource(R.drawable.auronoffline),
+                        contentDescription = "Icono Perfil",
                         contentScale = ContentScale.Crop
                     )
+
+                    Spacer(modifier = Modifier.width(5.dp))
 
                     Text(
                         text = "auron_offline",
                         lineHeight = 14.sp,
-                        fontWeight = FontWeight.Bold,
+                        fontWeight = FontWeight.W600,
                         color = Color.Black,
-                        fontSize = 9.sp,
+                        fontSize = 16.sp,
+                        letterSpacing = (.3).sp,
                         modifier = Modifier
+                            .padding(top = 2.dp)
 
                     )
                 }
 
+                Spacer(modifier = Modifier.height(7.dp))
+
                 Text(
                     text = "Auronplay Juega Among U...",
                     lineHeight = 5.sp,
-                    color = Color.DarkGray,
-                    fontSize = 8.sp,
-                    modifier = Modifier
-                        .padding(horizontal = 2.dp)
-
+                    fontWeight = FontWeight.Medium,
+                    color = MediumDarkGray,
+                    letterSpacing = (.5).sp,
+                    fontSize = 12.sp
                 )
+
+                Spacer(modifier = Modifier.height(7.dp))
 
                 Text(
                     text = "Just Chatting",
                     lineHeight = 5.sp,
-                    color = Color.DarkGray,
-                    fontSize = 8.sp,
-                    modifier = Modifier
-                        .padding(horizontal = 2.dp)
+                    fontWeight = FontWeight.Medium,
+                    color = MediumDarkGray,
+                    letterSpacing = (.5).sp,
+                    fontSize = 12.sp
 
                 )
 
 
             }
+
+            Spacer(modifier = Modifier.width(12.dp))
 
             Icon(
                 Icons.Filled.MoreVert,
                 contentDescription = "MoreVert Icon",
                 tint = Color.Black,
                 modifier = Modifier
-                    .size(8.dp)
+                    .size(33.dp)
+                    .padding(top = 7.dp)
 
             )
-
-            }
-
-            Spacer(modifier = Modifier.width(10.dp))
-
-            Column() {
-
-                Image(
-                    modifier = Modifier
-                        .width(75.dp)
-                        .height(110.dp),
-                    painter = painterResource(R.drawable.fortnite),
-                    contentDescription = "Imagen de el videojuego Fortnite",
-                    contentScale = ContentScale.Crop
-                )
-                Text(
-                    text = "Fortnite",
-                    lineHeight = 14.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black,
-                    fontSize = 9.sp,
-                    modifier = Modifier
-
-                )
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        Icons.Filled.Circle,
-                        contentDescription = "Circle Icon",
-                        tint = Color.Red,
-                        modifier = Modifier
-                            .size(8.dp)
-
-                    )
-                    Text(
-                        text = "27.9 K",
-                        lineHeight = 5.sp,
-                        color = Color.DarkGray,
-                        fontSize = 8.sp,
-                        modifier = Modifier
-                            .padding(horizontal = 2.dp)
-
-                    )
-                }
-
-
-            }
-
 
         }
 
     }
 
+}
 
 
+@Preview(showBackground = true)
+@Composable
+fun ThirdContent() {
 
+    Column() {
+
+        Spacer(modifier = Modifier.height(height = 20.dp))
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 17.dp)
+        ) {
+
+//Imagen de la pre-vista del video
+            Box(
+                modifier = Modifier
+                    .height(75.dp)
+            ) {
+
+                Image(
+                    modifier = Modifier
+                        .width(120.dp)
+                        .height(72.dp),
+                    painter = painterResource(R.drawable.robots),
+                    contentDescription = "Imagen de directo",
+                    contentScale = ContentScale.Crop,
+
+                    )
+
+
+                Row(
+                    modifier = Modifier
+                        .align(Alignment.BottomStart)
+                        .padding(4.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+                    Box(
+                        modifier = Modifier
+                            .size(11.dp)
+                            .background(Color.Red, shape = CircleShape)
+                    )
+
+
+                    Spacer(modifier = Modifier.width(3.dp))
+
+
+                    Text(
+                        text = "475",
+                        color = Color.White,
+                        letterSpacing = (-.2).sp,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+//Descripción del directo de Twitch
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Column() {
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Row() {
+                    Image(
+                        modifier = Modifier
+                            .size(20.dp)
+                            .clip(CircleShape),
+                        painter = painterResource(R.drawable.cuevana),
+                        contentDescription = "Icono Perfil",
+                        contentScale = ContentScale.Crop
+                    )
+
+                    Spacer(modifier = Modifier.width(5.dp))
+
+                    Text(
+                        text = "Cuevana3Tv",
+                        lineHeight = 14.sp,
+                        fontWeight = FontWeight.W600,
+                        color = Color.Black,
+                        fontSize = 16.sp,
+                        letterSpacing = (.3).sp,
+                        modifier = Modifier
+                            .padding(top = 2.dp)
+
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(7.dp))
+
+                Text(
+                    text = "\uD83C\uDF7FPELICULAS para reaccio...",
+                    lineHeight = 5.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = MediumDarkGray,
+                    letterSpacing = (.5).sp,
+                    fontSize = 12.sp
+                )
+
+                Spacer(modifier = Modifier.height(7.dp))
+
+                Text(
+                    text = "Anime Squad",
+                    lineHeight = 5.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = MediumDarkGray,
+                    letterSpacing = (.5).sp,
+                    fontSize = 12.sp
+
+                )
+
+
+            }
+
+            Spacer(modifier = Modifier.width(10.dp))
+
+            Icon(
+                Icons.Filled.MoreVert,
+                contentDescription = "MoreVert Icon",
+                tint = Color.Black,
+                modifier = Modifier
+                    .size(33.dp)
+                    .padding(top = 7.dp)
+
+            )
+
+        }
+
+    }
+
+}
+
+@Preview(showBackground = true)
+@Composable
+fun FourthContent() {
+    Column() {
+
+        Spacer(modifier = Modifier.height(height = 20.dp))
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 17.dp)
+        ) {
+
+//Imagen de la pre-vista del video
+            Box(
+                modifier = Modifier
+                    .height(75.dp)
+            ) {
+
+                Image(
+                    modifier = Modifier
+                        .width(120.dp)
+                        .height(72.dp),
+                    painter = painterResource(R.drawable.malcolm),
+                    contentDescription = "Imagen de directo",
+                    contentScale = ContentScale.Crop,
+
+                    )
+
+
+                Row(
+                    modifier = Modifier
+                        .align(Alignment.BottomStart)
+                        .padding(4.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+                    Box(
+                        modifier = Modifier
+                            .size(11.dp)
+                            .background(Color.Red, shape = CircleShape)
+                    )
+
+
+                    Spacer(modifier = Modifier.width(3.dp))
+
+
+                    Text(
+                        text = "246",
+                        color = Color.White,
+                        letterSpacing = (-.2).sp,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+//Descripción del directo de Twitch
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Column() {
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Row() {
+                    Image(
+                        modifier = Modifier
+                            .size(20.dp)
+                            .clip(CircleShape),
+                        painter = painterResource(R.drawable.iconomalcmolm),
+                        contentDescription = "Icono Perfil",
+                        contentScale = ContentScale.Crop
+                    )
+
+                    Spacer(modifier = Modifier.width(5.dp))
+
+                    Text(
+                        text = "Malcom_esp",
+                        lineHeight = 14.sp,
+                        fontWeight = FontWeight.W600,
+                        color = Color.Black,
+                        fontSize = 16.sp,
+                        letterSpacing = (.3).sp,
+                        modifier = Modifier
+                            .padding(top = 2.dp)
+
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(7.dp))
+
+                Text(
+                    text = "Malcolm el de en medio",
+                    lineHeight = 5.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = MediumDarkGray,
+                    letterSpacing = (.5).sp,
+                    fontSize = 12.sp
+                )
+
+                Spacer(modifier = Modifier.height(7.dp))
+
+                Text(
+                    text = "Just Chatting",
+                    lineHeight = 5.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = MediumDarkGray,
+                    letterSpacing = (.5).sp,
+                    fontSize = 12.sp
+
+                )
+
+
+            }
+
+            Spacer(modifier = Modifier.width(42.dp))
+
+            Icon(
+                Icons.Filled.MoreVert,
+                contentDescription = "MoreVert Icon",
+                tint = Color.Black,
+                modifier = Modifier
+                    .size(33.dp)
+                    .padding(top = 7.dp)
+
+            )
+
+        }
+
+    }
+
+}
+
+@Preview(showBackground = true)
+@Composable
+fun FifthContent() {
+    Column() {
+
+        Spacer(modifier = Modifier.height(height = 20.dp))
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 17.dp)
+        ) {
+
+//Imagen de la pre-vista del video
+            Box(
+                modifier = Modifier
+                    .height(75.dp)
+            ) {
+
+                Image(
+                    modifier = Modifier
+                        .width(120.dp)
+                        .height(72.dp),
+                    painter = painterResource(R.drawable.gta),
+                    contentDescription = "Imagen de fondo",
+                    contentScale = ContentScale.Crop,
+
+                    )
+
+
+                Row(
+                    modifier = Modifier
+                        .align(Alignment.BottomStart)
+                        .padding(4.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+                    Box(
+                        modifier = Modifier
+                            .size(11.dp)
+                            .background(Color.Red, shape = CircleShape)
+                    )
+
+
+                    Spacer(modifier = Modifier.width(3.dp))
+
+
+                    Text(
+                        text = "3.1k",
+                        color = Color.White,
+                        fontSize = 12.sp,
+                        letterSpacing = (-.2).sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+//Descripción del directo de Twitch
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Column() {
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Row() {
+                    Image(
+                        modifier = Modifier
+                            .size(20.dp)
+                            .clip(CircleShape),
+                        painter = painterResource(R.drawable.vegetta),
+                        contentDescription = "Icono Perfil",
+                        contentScale = ContentScale.Crop
+                    )
+
+                    Spacer(modifier = Modifier.width(5.dp))
+
+                    Text(
+                        text = "Vegetta777",
+                        lineHeight = 14.sp,
+                        fontWeight = FontWeight.W600,
+                        color = Color.Black,
+                        fontSize = 16.sp,
+                        letterSpacing = (.3).sp,
+                        modifier = Modifier
+                            .padding(top = 2.dp)
+
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(7.dp))
+
+                Text(
+                    text = "Vegetta juega GTAV",
+                    lineHeight = 5.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = MediumDarkGray,
+                    letterSpacing = (.5).sp,
+                    fontSize = 12.sp
+                )
+
+                Spacer(modifier = Modifier.height(7.dp))
+
+                Text(
+                    text = "Entra y disfruta",
+                    lineHeight = 5.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = MediumDarkGray,
+                    letterSpacing = (.5).sp,
+                    fontSize = 12.sp
+
+                )
+
+
+            }
+
+            Spacer(modifier = Modifier.width(62.dp))
+
+            Icon(
+                Icons.Filled.MoreVert,
+                contentDescription = "MoreVert Icon",
+                tint = Color.Black,
+                modifier = Modifier
+                    .size(33.dp)
+                    .padding(top = 7.dp)
+
+            )
+
+        }
+
+    }
+
+}
 
