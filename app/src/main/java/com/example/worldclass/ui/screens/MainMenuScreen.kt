@@ -30,6 +30,11 @@ fun MainMenuScreen(navController: NavHostController){
         ) {
             Text("Go to Test Screen")
         }
+        Button(
+            onClick = { navController.navigate("twitch_interface")}
+        ) {
+            Text("Go to Twitch Interface")
+        }
 
     }
 

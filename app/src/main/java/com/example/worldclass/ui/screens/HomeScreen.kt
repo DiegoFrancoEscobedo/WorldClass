@@ -34,7 +34,7 @@ import androidx.navigation.NavHostController
 import com.example.worldclass.R
 
 @Composable
-fun HomeScreen(navController: NavHostController){
+fun HomeScreen(navController: NavHostController) {
     topbar()
     Column(
         modifier = Modifier
@@ -43,7 +43,7 @@ fun HomeScreen(navController: NavHostController){
             .verticalScroll(rememberScrollState())
 
 
-    ){
+    ) {
         ContentOne()
         ContentTwo()
         ContentOne()
@@ -55,109 +55,114 @@ fun HomeScreen(navController: NavHostController){
 
 }
 
-    @Preview(showBackground = true)
-    @Composable
-    fun ContentOne(){
-        Card(modifier = Modifier
+@Preview(showBackground = true)
+@Composable
+fun ContentOne() {
+    Card(
+        modifier = Modifier
             .background(Color.LightGray)
             .fillMaxWidth()
-            .padding(5.dp)){
+            .padding(5.dp)
+    ) {
 
-            Text(
-                text = "This is a title",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier
-                    .padding(10.dp)
-            )
+        Text(
+            text = "This is a title",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier
+                .padding(10.dp)
+        )
 
+        Image(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp),
+            painter = painterResource(R.drawable.si),
+            contentDescription = "Imagen Random",
+            contentScale = ContentScale.Crop
+
+        )
+        Text(
+            stringResource(R.string.sample_text2),
+            textAlign = TextAlign.Justify,
+            lineHeight = 10.sp,
+            modifier = Modifier
+                .padding(10.dp)
+        )
+    }
+
+
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ContentTwo() {
+    Card(
+        modifier = Modifier
+            .background(Color.LightGray)
+            .fillMaxWidth()
+            .padding(5.dp)
+    ) {
+
+        Row() {
             Image(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp),
+                    .width(80.dp)
+                    .height(100.dp),
                 painter = painterResource(R.drawable.si),
                 contentDescription = "Imagen Random",
                 contentScale = ContentScale.Crop
-
             )
-            Text(
-                stringResource(R.string.sample_text2),
-                textAlign = TextAlign.Justify,
-                lineHeight = 10.sp,
-                modifier = Modifier
-                    .padding(10.dp)
-            )
-        }
-
-
-    }
-    @Preview(showBackground = true)
-    @Composable
-    fun ContentTwo(){
-        Card(modifier = Modifier
-            .background(Color.LightGray)
-            .fillMaxWidth()
-            .padding(5.dp)){
-
-            Row(){
-                Image(
+            Column() {
+                Text(
+                    text = "This is a title",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(100.dp),
-                    painter = painterResource(R.drawable.si),
-                    contentDescription = "Imagen Random",
-                    contentScale = ContentScale.Crop
+                        .padding(5.dp)
                 )
-                Column(){
-                    Text(
-                        text = "This is a title",
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(5.dp)
-                    )
-                    Text(
-                        stringResource(R.string.sample_text2),
-                        textAlign = TextAlign.Justify,
-                        lineHeight = 14.sp,
-                        fontSize = 10.sp,
-                        modifier = Modifier
-                            .padding(10.dp)
-                    )
-                }
+                Text(
+                    stringResource(R.string.sample_text2),
+                    textAlign = TextAlign.Justify,
+                    lineHeight = 14.sp,
+                    fontSize = 10.sp,
+                    modifier = Modifier
+                        .padding(10.dp)
+                )
             }
         }
-
-
     }
 
-    @Preview(showBackground = true)
-    @Composable
-    fun topbar(){
-        Row(
+
+}
+
+@Preview(showBackground = true)
+@Composable
+fun topbar() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(60.dp)
+            .background(Color.Black)
+            .padding(10.dp)
+    ) {
+        Icon(
+            Icons.Filled.Menu,
+            contentDescription = "Menu Icon",
+            tint = Color.White,
             modifier = Modifier
-                .fillMaxWidth()
-                .height(60.dp)
-                .background(Color.Black)
-                .padding(10.dp)
-        ){
-            Icon(
-                Icons.Filled.Menu,
-                contentDescription = "Menu Icon",
-                tint = Color.White,
-                modifier = Modifier
-                    .size(50.dp)
+                .size(50.dp)
 
-            )
+        )
 
-            Text(
-                stringResource(R.string.app_name),
-                color = Color.White,
-                fontSize = 30.sp
-            )
-
-        }
+        Text(
+            stringResource(R.string.app_name),
+            color = Color.White,
+            fontSize = 30.sp
+        )
 
     }
+
+}
 
 
