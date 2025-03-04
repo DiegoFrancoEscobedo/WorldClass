@@ -62,6 +62,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.androidx.runtime)
+
+
 
 
 }
