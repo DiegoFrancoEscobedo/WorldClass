@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
@@ -23,17 +24,22 @@ import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.InputChip
 import androidx.compose.material3.InputChipDefaults
 import androidx.compose.material3.LargeFloatingActionButton
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.ModalDrawerSheet
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SmallFloatingActionButton
@@ -42,11 +48,13 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -69,7 +77,171 @@ fun ComponentsScreen(navController: NavHostController) {
     //Switches()
     //Badges()
     //SnackBars()
-    AlertDialogs()
+    //AlertDialogs()
+    var option by rememberSaveable { mutableStateOf("buttons") }
+    var drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    var scope = rememberCoroutineScope()
+
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = {
+            ModalDrawerSheet {
+                Text("Menu", modifier = Modifier.padding(16.dp))
+                HorizontalDivider()
+                NavigationDrawerItem(
+                    icon = { Icon(Icons.Filled.AccountBox, contentDescription = "") },
+                    label = { Text("Buttons") },
+                    selected = false,
+                    onClick = {
+                        option = "buttons"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                NavigationDrawerItem(
+                    icon = { Icon(Icons.Filled.AccountBox, contentDescription = "") },
+                    label = { Text("Floating Buttons") },
+                    selected = false,
+                    onClick = {
+                        option = "floating-buttons"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                NavigationDrawerItem(
+                    icon = { Icon(Icons.Filled.AccountBox, contentDescription = "") },
+                    label = { Text("Progress") },
+                    selected = false,
+                    onClick = {
+                        option = "progress"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                NavigationDrawerItem(
+                    icon = { Icon(Icons.Filled.AccountBox, contentDescription = "") },
+                    label = { Text("Chips") },
+                    selected = false,
+                    onClick = {
+                        option = "chips"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                NavigationDrawerItem(
+                    icon = { Icon(Icons.Filled.AccountBox, contentDescription = "") },
+                    label = { Text("Sliders") },
+                    selected = false,
+                    onClick = {
+                        option = "sliders"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                NavigationDrawerItem(
+                    icon = { Icon(Icons.Filled.AccountBox, contentDescription = "") },
+                    label = { Text("Switches") },
+                    selected = false,
+                    onClick = {
+                        option = "switches"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                NavigationDrawerItem(
+                    icon = { Icon(Icons.Filled.AccountBox, contentDescription = "") },
+                    label = { Text("Badges") },
+                    selected = false,
+                    onClick = {
+                        option = "badges"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                NavigationDrawerItem(
+                    icon = { Icon(Icons.Filled.AccountBox, contentDescription = "") },
+                    label = { Text("SnackBars") },
+                    selected = false,
+                    onClick = {
+                        option = "snack-bars"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                NavigationDrawerItem(
+                    icon = { Icon(Icons.Filled.AccountBox, contentDescription = "") },
+                    label = { Text("AlertDialogs") },
+                    selected = false,
+                    onClick = {
+                        option = "alert-dialogs"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+            }
+        }
+    ) {
+        Column {
+            when (option) {
+                "buttons" -> {
+                    Buttons()
+                }
+                "floating-buttons" -> {
+                    FloatingButtons()
+                }
+                "progress" -> {
+                    Progress()
+                }
+                "chips" -> {
+                    Chips()
+                }
+                "sliders" -> {
+                    Sliders()
+                }
+                "switches" -> {
+                    Switches()
+                }
+                "badges" -> {
+                    Badges()
+                }
+                "snack-bars" -> {
+                    SnackBars()
+                }
+                "alert-dialogs" -> {
+                    AlertDialogs()
+                }
+
+            }
+        }
+
+    }
 
 }
 
@@ -204,7 +376,7 @@ fun InputChipExample(
     onDismiss: () -> Unit
 ) {
     var enabled by remember { mutableStateOf(true) }
-    if(!enabled) return
+    if (!enabled) return
 
     InputChip(
         label = { Text(text) },
@@ -244,9 +416,9 @@ fun Sliders() {
         var SliderPosition by remember { mutableStateOf(50f) }
         Slider(
             value = SliderPosition,
-            onValueChange = { SliderPosition = it},
+            onValueChange = { SliderPosition = it },
             steps = 10,
-            valueRange = 0f .. 100f
+            valueRange = 0f..100f
 
         )
         Text(
@@ -272,13 +444,13 @@ fun Switches() {
         var checked by remember { mutableStateOf(true) }
         Switch(
             checked = checked,
-            onCheckedChange = { checked = it}
+            onCheckedChange = { checked = it }
         )
         var checked2 by remember { mutableStateOf(true) }
         Switch(
             checked = checked2,
             onCheckedChange = { checked2 = it },
-            thumbContent = if (checked2){
+            thumbContent = if (checked2) {
                 {
                     Icon(
                         Icons.Filled.Check,
@@ -286,7 +458,7 @@ fun Switches() {
                         Modifier.size(InputChipDefaults.AvatarSize)
                     )
                 }
-            }else{
+            } else {
                 null
             }
 
@@ -294,7 +466,7 @@ fun Switches() {
         var checked3 by remember { mutableStateOf(true) }
         Checkbox(
             checked = checked3,
-            onCheckedChange = {checked3 = it}
+            onCheckedChange = { checked3 = it }
         )
 
     }
@@ -313,12 +485,12 @@ fun Badges() {
         var itemCount by remember { mutableStateOf(0) }
         BadgedBox(
             badge = {
-                if (itemCount > 0){
+                if (itemCount > 0) {
                     Badge(
                         containerColor = Color.Red,
                         contentColor = Color.Black
-                    ){
-                        Text( itemCount.toString())
+                    ) {
+                        Text(itemCount.toString())
                     }
                 }
             }
@@ -331,7 +503,7 @@ fun Badges() {
 
         }
         Button(
-            onClick = {itemCount++}
+            onClick = { itemCount++ }
         ) {
             Text("Add item")
 
@@ -339,7 +511,6 @@ fun Badges() {
 
     }
 }
-
 
 
 //@Preview(showBackground = true)
@@ -357,7 +528,7 @@ fun SnackBars() {
 
         SnackbarHost(hostState = snackState)
 
-        fun launchSnackBar(){
+        fun launchSnackBar() {
             snackScope.launch { snackState.showSnackbar("The message has been sent") }
         }
 
@@ -382,9 +553,9 @@ fun AlertDialogs() {
         var showAlertDialog by remember { mutableStateOf(false) }
         var selectedOption by remember { mutableStateOf("") }
 
-        if(showAlertDialog){
+        if (showAlertDialog) {
             AlertDialog(
-                icon = {Icon(Icons.Filled.Warning, contentDescription = "Warning Icon")},
+                icon = { Icon(Icons.Filled.Warning, contentDescription = "Warning Icon") },
                 title = { Text("Confirm Deletion") },
                 text = { Text("Do you really want to delete this file?") },
                 //to close the dialog when clicking any part of the screen that is not the Alert Dialog
@@ -411,7 +582,7 @@ fun AlertDialogs() {
                 }
             )
         }
-        Button(onClick = {showAlertDialog = true}) {
+        Button(onClick = { showAlertDialog = true }) {
             Text("Delete File")
         }
         Text(selectedOption)
