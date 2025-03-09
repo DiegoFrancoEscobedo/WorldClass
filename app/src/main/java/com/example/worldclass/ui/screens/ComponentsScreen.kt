@@ -8,12 +8,27 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Abc
+import androidx.compose.material.icons.filled.AccessTimeFilled
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AddBox
+import androidx.compose.material.icons.filled.AddBusiness
+import androidx.compose.material.icons.filled.AddChart
+import androidx.compose.material.icons.filled.AddComment
+import androidx.compose.material.icons.filled.AddHome
+import androidx.compose.material.icons.filled.Agriculture
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Crop169
+import androidx.compose.material.icons.filled.Details
+import androidx.compose.material.icons.filled.DirectionsCarFilled
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.AlertDialog
@@ -21,6 +36,7 @@ import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
@@ -33,10 +49,13 @@ import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.InputChip
 import androidx.compose.material3.InputChipDefaults
 import androidx.compose.material3.LargeFloatingActionButton
+import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
@@ -48,6 +67,8 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -64,20 +85,30 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.worldclass.R
+import com.example.worldclass.data.model.MenuModel
+import com.example.worldclass.data.model.PostCardModel
+import com.example.worldclass.ui.components.PostCardComponent
 import kotlinx.coroutines.launch
 
 
 @Composable
 fun ComponentsScreen(navController: NavHostController) {
-    //Buttons()
-    //FloatingButtons()
-    //Progress()
-    //Chips()
-    //Sliders()
-    //Switches()
-    //Badges()
-    //SnackBars()
-    //AlertDialogs()
+    val menuOptions = arrayOf(
+        MenuModel(1, "Buttons", "buttons", Icons.Filled.Person),
+        MenuModel(2, "FloatingButtons", "floating-buttons", Icons.Filled.Add),
+        MenuModel(3, "Progress", "progress", Icons.Filled.Abc),
+        MenuModel(4, "Chips", "chips", Icons.Filled.Check),
+        MenuModel(5, "Sliders", "sliders", Icons.Filled.DirectionsCarFilled),
+        MenuModel(6, "Switches", "switches", Icons.Filled.AccessTimeFilled),
+        MenuModel(7, "Badges", "badges", Icons.Filled.AddBox),
+        MenuModel(8, "SnackBars", "snack-bars", Icons.Filled.AddChart),
+        MenuModel(9, "AlertDialogs", "alert-dialogs", Icons.Filled.AddHome),
+        MenuModel(10, "Bars", "bars", Icons.Filled.Details),
+
+
+
+    )
     var option by rememberSaveable { mutableStateOf("buttons") }
     var drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     var scope = rememberCoroutineScope()
@@ -88,20 +119,25 @@ fun ComponentsScreen(navController: NavHostController) {
             ModalDrawerSheet {
                 Text("Menu", modifier = Modifier.padding(16.dp))
                 HorizontalDivider()
-                NavigationDrawerItem(
-                    icon = { Icon(Icons.Filled.AccountBox, contentDescription = "") },
-                    label = { Text("Buttons") },
-                    selected = false,
-                    onClick = {
-                        option = "buttons"
-                        scope.launch {
-                            drawerState.apply {
-                                close()
+                LazyColumn {
+                    items(menuOptions) { item ->
+
+                    NavigationDrawerItem(
+                        icon = { Icon(item.icon, contentDescription = "") },
+                        label = { Text(item.title) },
+                        selected = false,
+                        onClick = {
+                            option = item.option
+                            scope.launch {
+                                drawerState.apply {
+                                    close()
+                                }
                             }
                         }
-                    }
-                )
-                NavigationDrawerItem(
+                    )
+                }
+                }
+                /*NavigationDrawerItem(
                     icon = { Icon(Icons.Filled.AccountBox, contentDescription = "") },
                     label = { Text("Floating Buttons") },
                     selected = false,
@@ -204,7 +240,7 @@ fun ComponentsScreen(navController: NavHostController) {
                             }
                         }
                     }
-                )
+                )*/
             }
         }
     ) {
@@ -237,12 +273,14 @@ fun ComponentsScreen(navController: NavHostController) {
                 "alert-dialogs" -> {
                     AlertDialogs()
                 }
+                "bars" -> {
+                    Bars()
+                }
 
             }
         }
 
     }
-
 }
 
 //@Preview(showBackground = true)
@@ -586,5 +624,89 @@ fun AlertDialogs() {
             Text("Delete File")
         }
         Text(selectedOption)
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun Bars() {
+    Column (
+        modifier = Modifier
+            .fillMaxSize()
+    ){
+        LargeTopAppBar( //Puede ser de tamaño normal (TopAppBar), medio (MediumTopAppBar) y largo
+            colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = Color.Black,
+                titleContentColor = Color.White
+            ),
+            title = { Text("Screen Title") },
+            actions = {
+                IconButton(onClick = {}) {
+                    Icon(imageVector = Icons.Filled.Search, contentDescription = "Search Button")
+                }
+                IconButton(onClick = {}) {
+                    Icon(imageVector = Icons.Filled.AddComment, contentDescription = "Comment Button")
+                }
+            }
+        )
+        val arrayPosts = arrayOf(
+            PostCardModel(1, "Title 1", "Text 1", R.drawable.si),
+            PostCardModel(2, "Title 2", "Text 2", R.drawable.si),
+            PostCardModel(3, "Title 3", "Text 3", R.drawable.si),
+        )
+        LazyRow(
+            modifier = Modifier
+                .fillMaxSize()
+                .weight(1f)
+
+        ){
+            items(arrayPosts){ item ->
+                PostCardComponent(item.id, item.title, item.text, item.image)
+            }
+        }
+        BottomAppBar (
+            containerColor = Color.Red,
+            contentColor = Color.Blue
+        ){
+            IconButton(
+                modifier = Modifier,
+                onClick = {},
+
+            ) {
+                Icon(imageVector = Icons.Filled.AccessTimeFilled, contentDescription = "")
+            }
+            IconButton(
+                modifier = Modifier
+                    .weight(1f),
+                onClick = {},
+
+                ) {
+                Icon(imageVector = Icons.Filled.Abc, contentDescription = "")
+            }
+            IconButton(
+                modifier = Modifier
+                    .weight(1f),
+                onClick = {},
+
+                ) {
+                Icon(imageVector = Icons.Filled.AddBusiness, contentDescription = "")
+            }
+            IconButton(
+                modifier = Modifier
+                    .weight(1f),
+                onClick = {},
+
+                ) {
+                Icon(imageVector = Icons.Filled.Agriculture, contentDescription = "")
+            }
+            IconButton(
+                modifier = Modifier
+                    .weight(1f),
+                onClick = {},
+
+                ) {
+                Icon(imageVector = Icons.Filled.Crop169, contentDescription = "")
+            }
+        }
     }
 }
