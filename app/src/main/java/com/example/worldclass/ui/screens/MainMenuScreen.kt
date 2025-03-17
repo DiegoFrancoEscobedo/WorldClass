@@ -35,6 +35,11 @@ fun MainMenuScreen(navController: NavHostController){
         ) {
             Text("Go to Twitch Interface")
         }
+        Button(
+            onClick = { navController.navigate("components_screen")}
+        ) {
+            Text("Go to Components Screen")
+        }
 
     }
 
