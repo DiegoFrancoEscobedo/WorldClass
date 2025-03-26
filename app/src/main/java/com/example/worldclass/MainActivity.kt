@@ -45,6 +45,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.worldclass.ui.screens.ComponentsScreen
 import com.example.worldclass.ui.screens.HomeScreen
+import com.example.worldclass.ui.screens.LoginScreen
 import com.example.worldclass.ui.screens.MainMenuScreen
 import com.example.worldclass.ui.screens.TestScreen
 import com.example.worldclass.ui.screens.TwitchInterface
@@ -83,6 +84,7 @@ fun SetupNavGraph(navController: NavHostController) {
         composable("test_screen") { TestScreen(navController) }
         composable("twitch_interface") { TwitchInterface(navController) }
         composable("components_screen") { ComponentsScreen(navController) }
+        composable("login_screen") { LoginScreen(navController) }
 
     }
 

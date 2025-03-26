@@ -1,5 +1,5 @@
 [versions]
-agp = "8.8.0"
+agp = "8.9.0"
 kotlin = "2.0.0"
 coreKtx = "1.10.1"
 junit = "4.13.2"
@@ -16,6 +16,7 @@ accompanist = "0.31.1-alpha"
 runtime = "1.7.8"
 adaptiveAndroid = "1.0.0"
 material3 = "1.4.0-alpha10"
+xcoilCompose = "2.4.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -40,6 +41,7 @@ androidx-datastore-core-android = { group = "androidx.datastore", name = "datast
 androidx-compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version = "1.7.8" }
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 androidx-adaptive-android = { group = "androidx.compose.material3.adaptive", name = "adaptive-android", version.ref = "adaptiveAndroid" }
+xcoil-compose = { module = "io.coil-kt: coil-compose", version.ref = "xcoilCompose" }
 
 
 

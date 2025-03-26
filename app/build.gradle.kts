@@ -64,6 +64,9 @@ dependencies {
     implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.androidx.runtime)
+    // Coil AsyncImage
+    //implementation("io.coil-kt: coil-compose:2.4.0")
+    implementation(libs.xcoil.compose)
 
 
 
