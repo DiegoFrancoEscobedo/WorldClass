@@ -3,9 +3,12 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.worldclass.data.model.AccountModel
+import com.example.worldclass.data.network.ApiService
 import com.example.worldclass.data.network.RetrofitClient
+import com.google.gson.JsonObject
 import kotlinx.coroutines.launch
 import retrofit2.Response
+
 
 class AccountViewModel: ViewModel() {
     val api= RetrofitClient.api
@@ -30,6 +33,26 @@ class AccountViewModel: ViewModel() {
                 onResult(response)
             }catch (exception: Exception){
                 Log.d("debug", "API ERROR: $exception")
+            }
+        }
+    }
+
+    fun createAccount(service: AccountModel, onResult:(JsonObject?) -> Unit){
+        viewModelScope.launch {
+            try {
+                val response = api.addAccount(service)
+                if (response.isSuccessful){
+                    val jsonResponse = response.body()
+                    Log.d("debug", "${response.body()}")
+                    onResult(jsonResponse)
+                }else{
+                    Log.d("debug", "ERROR: ${response.body()}")
+                    onResult(null)
+                }
+            }catch(exception: Exception){
+
+                Log.d("debug", "API CALL FAILED: $exception")
+                onResult(null)
             }
         }
     }

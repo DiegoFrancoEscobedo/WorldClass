@@ -48,6 +48,7 @@ import com.example.worldclass.ui.screens.ComponentsScreen
 import com.example.worldclass.ui.screens.HomeScreen
 import com.example.worldclass.ui.screens.LoginScreen
 import com.example.worldclass.ui.screens.MainMenuScreen
+import com.example.worldclass.ui.screens.ManageAccountScreen
 import com.example.worldclass.ui.screens.TestScreen
 import com.example.worldclass.ui.screens.TwitchInterface
 import com.example.worldclass.ui.theme.WorldClassTheme
@@ -87,6 +88,7 @@ fun SetupNavGraph(navController: NavHostController) {
         composable("components_screen") { ComponentsScreen(navController) }
         composable("login_screen") { LoginScreen(navController) }
         composable("accounts_screen") { AccountsScreen(navController) }
+        composable("manage_account_screen") { ManageAccountScreen(navController) }
 
     }
 

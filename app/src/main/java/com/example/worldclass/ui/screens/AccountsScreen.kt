@@ -23,7 +23,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.worldclass.data.model.AccountModel
 import com.example.worldclass.ui.components.AccountCardComponent
-import com.example.worldclass.ui.components.AccountDetailCArdComponent
+import com.example.worldclass.ui.components.AccountDetailCardComponent
 import com.example.worldclass.ui.components.TopBarComponent
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -40,7 +40,8 @@ fun AccountsScreen(
     var accountDetail by remember { mutableStateOf<AccountModel?>(null) }
 
     Column() {
-        TopBarComponent("Accounts")
+        TopBarComponent("Accounts", navController, "accounts_screen")
+
         LaunchedEffect(Unit) {
             viewModel.getAccounts { response ->
                 if (response.isSuccessful) {
@@ -51,32 +52,33 @@ fun AccountsScreen(
 
             }
         }
+        val listState = rememberLazyListState()
 
-    }
-    val listState = rememberLazyListState()
-
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize(),
-        state = listState
-    ) {
-        items(accounts) { account ->
-            AccountCardComponent(
-                account.id,
-                account.name,
-                account.username,
-                account.imageURL,
-                onButtonClick = {
-                    viewModel.getAccount(account.id) { response ->
-                        if (response.isSuccessful) {
-                            accountDetail = response.body()
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize(),
+            state = listState
+        ) {
+            items(accounts) { account ->
+                AccountCardComponent(
+                    account.id,
+                    account.name,
+                    account.username,
+                    account.imageURL,
+                    onButtonClick = {
+                        viewModel.getAccount(account.id) { response ->
+                            if (response.isSuccessful) {
+                                accountDetail = response.body()
+                            }
                         }
+                        showBottomSheet = true
                     }
-                    showBottomSheet = true
-                }
-            )
+                )
+            }
         }
+
     }
+
 
     if (showBottomSheet) {
         ModalBottomSheet(
@@ -87,7 +89,7 @@ fun AccountsScreen(
             },
             sheetState = sheetState
         ) {
-            AccountDetailCArdComponent(
+            AccountDetailCardComponent(
                 accountDetail?.id ?: 0,
                 accountDetail?.name ?: "",
                 accountDetail?.username ?: "",

@@ -165,7 +165,7 @@ fun TryLogin(
         Toast.makeText(
             context,
             "User or Password cannot be empty",
-            Toast.LENGTH_SHORT
+            Toast.LENGTH_SHORT //the message will show for a shorter times pan
         ).show()
     }else{
         val user_model = UserModel(0, "", user, password)
