@@ -1,6 +1,7 @@
 package com.example.worldclass
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -43,6 +44,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.worldclass.data.database.AppDatabase
+import com.example.worldclass.data.database.DatabaseProvider
 import com.example.worldclass.ui.screens.AccountsScreen
 import com.example.worldclass.ui.screens.ComponentsScreen
 import com.example.worldclass.ui.screens.HomeScreen
@@ -54,8 +57,16 @@ import com.example.worldclass.ui.screens.TwitchInterface
 import com.example.worldclass.ui.theme.WorldClassTheme
 
 class MainActivity : ComponentActivity() {
+    lateinit var database: AppDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        try{
+            database = DatabaseProvider.getDatabase(this)
+            Log.d("debug-db", "Database loaded successfully")
+        }catch(exception:Exception){
+            Log.d("debug-db", "ERROR: $exception")
+        }
 
         //enableEdgeToEdge()
         //Que contenido visual tiene nuestra app
