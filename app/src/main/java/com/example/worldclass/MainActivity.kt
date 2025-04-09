@@ -48,6 +48,7 @@ import com.example.worldclass.data.database.AppDatabase
 import com.example.worldclass.data.database.DatabaseProvider
 import com.example.worldclass.ui.screens.AccountsScreen
 import com.example.worldclass.ui.screens.ComponentsScreen
+import com.example.worldclass.ui.screens.FavoriteAccountsScreen
 import com.example.worldclass.ui.screens.HomeScreen
 import com.example.worldclass.ui.screens.LoginScreen
 import com.example.worldclass.ui.screens.MainMenuScreen
@@ -100,6 +101,8 @@ fun SetupNavGraph(navController: NavHostController) {
         composable("login_screen") { LoginScreen(navController) }
         composable("accounts_screen") { AccountsScreen(navController) }
         composable("manage_account_screen") { ManageAccountScreen(navController) }
+        composable("favorite_accounts_screen") { FavoriteAccountsScreen(navController) }
+
 
     }
 
