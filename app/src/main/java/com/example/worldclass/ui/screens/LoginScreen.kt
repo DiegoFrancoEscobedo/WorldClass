@@ -140,7 +140,9 @@ fun LoginForm(
                     .fillMaxWidth()
                     .padding(0.dp, 10.dp),
                 shape = CutCornerShape(4.dp),
-                onClick = {}
+                onClick = {
+                    navController.navigate("manage_account_screen")
+                }
             ) {
                 Text("CREATE ACCOUNT")
             }

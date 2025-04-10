@@ -29,16 +29,16 @@ import com.example.worldclass.ui.components.TopBarComponent
 fun ManageAccountScreen(
     navController: NavController,
     viewModel: AccountViewModel = viewModel()
-){
+) {
     val account = remember { mutableStateOf(AccountModel()) }
     val context = LocalContext.current
 
-    Column (
+    Column(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.background)
             .padding(10.dp)
             .fillMaxSize()
-    ){
+    ) {
         TopBarComponent("Add Account", navController, "manage_account_screen")
 
         OutlinedTextField(
@@ -46,8 +46,8 @@ fun ManageAccountScreen(
                 .fillMaxWidth(),
             value = account.value.name,
             maxLines = 1,
-            onValueChange = {account.value = account.value.copy(name = it)},
-            label = {Text("Account Name")}
+            onValueChange = { account.value = account.value.copy(name = it) },
+            label = { Text("Account Name") }
         )
 
         OutlinedTextField(
@@ -55,7 +55,7 @@ fun ManageAccountScreen(
                 .fillMaxWidth(),
             value = account.value.username,
             maxLines = 1,
-            onValueChange = {account.value = account.value.copy(username = it)},
+            onValueChange = { account.value = account.value.copy(username = it) },
             label = { Text("Account Username") }
         )
 
@@ -64,17 +64,17 @@ fun ManageAccountScreen(
                 .fillMaxWidth(),
             value = account.value.password,
             maxLines = 1,
-            onValueChange = {account.value = account.value.copy(password = it)},
+            onValueChange = { account.value = account.value.copy(password = it) },
             label = { Text("Account Password") },
 
-        )
+            )
 
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth(),
             value = account.value.description,
             maxLines = 1,
-            onValueChange = {account.value = account.value.copy(description = it)},
+            onValueChange = { account.value = account.value.copy(description = it) },
             label = { Text("Account Description") }
 
         )
@@ -97,37 +97,45 @@ fun TryCreateAccount(
     accountState: MutableState<AccountModel>,
     context: Context,
     viewModel: AccountViewModel
-){
-    val acc = accountState.value
-    if(
-        acc.name.isEmpty() ||
-        acc.username.isEmpty() ||
-        acc.password.isEmpty() ||
-        acc.description.isEmpty()
-    ){
-        //requires a context
-        Toast.makeText(
-            context,
-            "None of the fields can be empty",
-            Toast.LENGTH_SHORT //the message will show for a shorter timespan
-        ).show()
-    } else {
-        viewModel.createAccount(acc){ jsonResponse ->
-            val createAcStatus = jsonResponse?.get("store")?.asString
-            Log.d("debug", "CREATE ACCOUNT STATUS: $createAcStatus")
-            if(createAcStatus == "success"){
-                Toast.makeText(
-                    context,
-                    "Account created successfully",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
-                Toast.makeText(
-                    context,
-                    "Error creating account",
-                    Toast.LENGTH_SHORT
-                ).show()
+) {
+    try {
+        val acc = accountState.value
+        if (
+            acc.name.isEmpty() ||
+            acc.username.isEmpty() ||
+            acc.password.isEmpty() ||
+            acc.description.isEmpty()
+        ) {
+            Log.d("debug", "ERROR")
+            Toast.makeText(
+                context,
+                "None of the fields can be empty",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            viewModel.createAccount(acc) { jsonResponse ->
+                val createAcStatus = jsonResponse?.get("store")?.asString
+                Log.d("debug", "CREATE ACCOUNT STATUS: $createAcStatus")
+                Log.d("debug", "SUCCESS")
+                if (createAcStatus == "success") {
+                    Toast.makeText(
+                        context,
+                        "Account created successfully",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Log.d("debug", "CREATE ACCOUNT STATUS: $createAcStatus")
+                    Log.d("debug", "ERROR")
+                    Toast.makeText(
+                        context,
+                        "Error creating account",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
+    } catch (exception: Exception) {
+        Log.d("debug", "ERROR: $exception")
     }
+
 }

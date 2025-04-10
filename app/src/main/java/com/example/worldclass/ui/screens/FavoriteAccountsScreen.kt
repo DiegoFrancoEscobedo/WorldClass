@@ -1,5 +1,6 @@
 package com.example.worldclass.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,7 +21,9 @@ import com.example.worldclass.data.database.DatabaseProvider
 import com.example.worldclass.data.model.AccountEntity
 import com.example.worldclass.ui.components.FavoriteAccountCard
 import com.example.worldclass.ui.components.TopBarComponent
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @Composable
@@ -49,7 +52,20 @@ fun FavoriteAccountsScreen(navController: NavController){
                     accountdb.username ?: "",
                     accountdb.password ?: "",
                     accountdb.description ?: "",
-                    accountdb.imageURL ?: ""
+                    accountdb.imageURL ?: "",
+                    onDeleteClick = {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            try {
+                                accountDao.delete(accountdb)
+
+                                accountsdb = withContext(Dispatchers.IO){
+                                    accountDao.getAll()
+                                }
+                            }catch (exception:Exception){
+                                Log.d("debug", "ERROR: $exception")
+                            }
+                        }
+                    }
 
                 )
 

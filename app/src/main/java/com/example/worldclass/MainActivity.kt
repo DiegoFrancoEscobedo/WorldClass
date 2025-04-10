@@ -92,7 +92,7 @@ fun ComposeMultiScreenApp() { //Manda a llamar a una clase
 
 @Composable
 fun SetupNavGraph(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "main_menu") {
+    NavHost(navController = navController, startDestination = "login_screen") {
         composable("main_menu") { MainMenuScreen(navController) } //Se importa la clase
         composable("home_screen") { HomeScreen(navController) }
         composable("test_screen") { TestScreen(navController) }
