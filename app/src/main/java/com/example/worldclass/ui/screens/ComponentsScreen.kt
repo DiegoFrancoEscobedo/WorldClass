@@ -31,6 +31,7 @@ import androidx.compose.material.icons.filled.Abc
 import androidx.compose.material.icons.filled.AccessTimeFilled
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AddAlarm
 import androidx.compose.material.icons.filled.AddBox
 import androidx.compose.material.icons.filled.AddBusiness
 import androidx.compose.material.icons.filled.AddChart
@@ -157,11 +158,12 @@ fun ComponentsScreen(navController: NavHostController) {
         MenuModel(8, "SnackBars", "snack-bars", Icons.Filled.AddChart),
         MenuModel(9, "AlertDialogs", "alert-dialogs", Icons.Filled.AddHome),
         MenuModel(10, "Bars", "bars", Icons.Filled.Details),
-        MenuModel(11, "InputFields", "input-fields", Icons.Filled.DeviceThermostat),
-        MenuModel(12, "DatePickers", "date-pickers", Icons.Filled.AddToQueue),
-        MenuModel(13, "PullToRefresh", "pull-to-refresh", Icons.Filled.AddToPhotos),
-        MenuModel(14, "BottomSheets", "bottom-sheets", Icons.Filled.AlignVerticalCenter),
-        MenuModel(15, "SegmentedButtons", "segmented-buttons", Icons.Filled.ArrowDropDownCircle),
+        MenuModel(11, "Adaptive", "adaptive", Icons.Filled.AddAlarm),
+        MenuModel(12, "InputFields", "input-fields", Icons.Filled.DeviceThermostat),
+        MenuModel(13, "DatePickers", "date-pickers", Icons.Filled.AddToQueue),
+        MenuModel(14, "PullToRefresh", "pull-to-refresh", Icons.Filled.AddToPhotos),
+        MenuModel(15, "BottomSheets", "bottom-sheets", Icons.Filled.AlignVerticalCenter),
+        MenuModel(16, "SegmentedButtons", "segmented-buttons", Icons.Filled.ArrowDropDownCircle),
 
 
         )
@@ -237,6 +239,10 @@ fun ComponentsScreen(navController: NavHostController) {
 
                 "bars" -> {
                     Bars()
+                }
+
+                "adaptive" -> {
+                    Adaptive()
                 }
 
                 "input-fields" -> {

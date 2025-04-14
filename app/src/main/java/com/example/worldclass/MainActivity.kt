@@ -1,6 +1,7 @@
 package com.example.worldclass
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -43,16 +44,31 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.worldclass.data.database.AppDatabase
+import com.example.worldclass.data.database.DatabaseProvider
+import com.example.worldclass.ui.screens.AccountsScreen
 import com.example.worldclass.ui.screens.ComponentsScreen
+import com.example.worldclass.ui.screens.FavoriteAccountsScreen
 import com.example.worldclass.ui.screens.HomeScreen
+import com.example.worldclass.ui.screens.LoginScreen
 import com.example.worldclass.ui.screens.MainMenuScreen
+import com.example.worldclass.ui.screens.ManageAccountScreen
 import com.example.worldclass.ui.screens.TestScreen
 import com.example.worldclass.ui.screens.TwitchInterface
 import com.example.worldclass.ui.theme.WorldClassTheme
 
 class MainActivity : ComponentActivity() {
+    lateinit var database: AppDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        try{
+            database = DatabaseProvider.getDatabase(this)
+            Log.d("debug-db", "Database loaded successfully")
+        }catch(exception:Exception){
+            Log.d("debug-db", "ERROR: $exception")
+        }
 
         //enableEdgeToEdge()
         //Que contenido visual tiene nuestra app
@@ -77,12 +93,27 @@ fun ComposeMultiScreenApp() { //Manda a llamar a una clase
 
 @Composable
 fun SetupNavGraph(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "main_menu") {
+    NavHost(navController = navController, startDestination = "login_screen") {
         composable("main_menu") { MainMenuScreen(navController) } //Se importa la clase
         composable("home_screen") { HomeScreen(navController) }
         composable("test_screen") { TestScreen(navController) }
         composable("twitch_interface") { TwitchInterface(navController) }
         composable("components_screen") { ComponentsScreen(navController) }
+        composable("login_screen") { LoginScreen(navController) }
+        composable("accounts_screen") { AccountsScreen(navController) }
+        composable("manage_account_screen") { ManageAccountScreen(navController) }
+        composable(
+            route = "manage_account_screen/{id}",
+            arguments = listOf(navArgument("id") { defaultValue = -1 })
+        ) { backStackEntry ->
+            val id = backStackEntry.arguments?.getString("id")?.toIntOrNull() ?: -1
+            ManageAccountScreen(
+                navController = navController,
+                accountId = id
+            )
+        }
+        composable("favorite_accounts_screen") { FavoriteAccountsScreen(navController) }
+
 
     }
 
