@@ -1,7 +1,10 @@
 package com.example.worldclass.ui.screens
 
+import android.content.Context
 import com.example.worldclass.data.viewmodel.AccountViewModel
 import android.util.Log
+import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,7 +13,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -48,7 +50,12 @@ fun AccountsScreen(
     val db:AppDatabase = DatabaseProvider.getDatabase(LocalContext.current)
     val accountDao = db.accountDao()
 
-    Column() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(androidx.compose.material3.MaterialTheme.colorScheme.background
+            )
+    ) {
         TopBarComponent("Accounts", navController, "accounts_screen")
 
         LaunchedEffect(Unit) {
@@ -96,7 +103,7 @@ fun AccountsScreen(
             onDismissRequest = {
                 showBottomSheet = false
             },
-            sheetState = sheetState
+            sheetState = sheetState,
         ) {
             AccountDetailCardComponent(
                 accountDetail?.id ?: 0,
@@ -114,8 +121,9 @@ fun AccountsScreen(
                             Log.d("debug-db", "ERROR: $exception")
                         }
                     }
-                }
-
+                    showBottomSheet = false
+                },
+                navController
             )
 
         }

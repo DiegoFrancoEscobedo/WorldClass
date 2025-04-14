@@ -12,6 +12,7 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -60,14 +61,19 @@ fun FavoriteAccountCard(
             Text(
                 modifier = Modifier.padding(10.dp),
                 text = "Account Service",
-                color = Color.White,
-                fontSize = 10.sp,
-                fontWeight = FontWeight.ExtraBold
+                color = MaterialTheme.colorScheme.secondary,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.ExtraBold,
+
             )
             IconButton(onClick = {
                 onDeleteClick()
             }) {
-                Icon(imageVector = Icons.Filled.Delete, contentDescription = "Delete")
+                Icon(
+                    imageVector = Icons.Filled.Delete,
+                    contentDescription = "Delete",
+                    tint = MaterialTheme.colorScheme.secondary
+                )
             }
         }
         Row (
@@ -81,11 +87,13 @@ fun FavoriteAccountCard(
                 text = "Name: ",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.secondary
             )
             Text(
                 text = name,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.secondary
             )
         }
         Row (
@@ -100,11 +108,13 @@ fun FavoriteAccountCard(
                 text = "Username:",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.secondary
             )
             Text(
                 text = username,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.secondary
             )
         }
         Row (
@@ -119,11 +129,13 @@ fun FavoriteAccountCard(
                 text = "Password",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.secondary
             )
             Text(
                 text = password,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.secondary
             )
         }
         Row (
@@ -138,11 +150,13 @@ fun FavoriteAccountCard(
                 text = "Description",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.secondary
             )
             Text(
                 text = description,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.secondary
             )
         }
     }

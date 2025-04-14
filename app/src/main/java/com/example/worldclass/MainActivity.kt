@@ -44,6 +44,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.worldclass.data.database.AppDatabase
 import com.example.worldclass.data.database.DatabaseProvider
 import com.example.worldclass.ui.screens.AccountsScreen
@@ -101,6 +102,16 @@ fun SetupNavGraph(navController: NavHostController) {
         composable("login_screen") { LoginScreen(navController) }
         composable("accounts_screen") { AccountsScreen(navController) }
         composable("manage_account_screen") { ManageAccountScreen(navController) }
+        composable(
+            route = "manage_account_screen/{id}",
+            arguments = listOf(navArgument("id") { defaultValue = -1 })
+        ) { backStackEntry ->
+            val id = backStackEntry.arguments?.getString("id")?.toIntOrNull() ?: -1
+            ManageAccountScreen(
+                navController = navController,
+                accountId = id
+            )
+        }
         composable("favorite_accounts_screen") { FavoriteAccountsScreen(navController) }
 
 

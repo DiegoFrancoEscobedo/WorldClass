@@ -12,6 +12,7 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -55,6 +56,7 @@ fun AccountCardComponent(
                 Text(
                     text = name,
                     fontSize = 18.sp,
+                    color = MaterialTheme.colorScheme.secondary,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
                         .padding(2.dp, 8.dp, 0.dp, 0.dp)
@@ -62,6 +64,7 @@ fun AccountCardComponent(
                 Text(
                     text = username,
                     fontSize = 18.sp,
+                    color = MaterialTheme.colorScheme.secondary,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
                         .padding(2.dp, 8.dp, 0.dp, 0.dp)
@@ -82,8 +85,8 @@ fun AccountCardComponent(
                 ) {
                     Icon(
                         Icons.Filled.MoreVert,
-                        contentDescription = "Icon"
-
+                        contentDescription = "Icon",
+                        tint = MaterialTheme.colorScheme.secondary
                     )
                 }
             }
