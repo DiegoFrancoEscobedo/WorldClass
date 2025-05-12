@@ -48,6 +48,7 @@ import androidx.navigation.navArgument
 import com.example.worldclass.data.database.AppDatabase
 import com.example.worldclass.data.database.DatabaseProvider
 import com.example.worldclass.ui.screens.AccountsScreen
+import com.example.worldclass.ui.screens.CameraScreen
 import com.example.worldclass.ui.screens.ComponentsScreen
 import com.example.worldclass.ui.screens.FavoriteAccountsScreen
 import com.example.worldclass.ui.screens.HomeScreen
@@ -93,7 +94,7 @@ fun ComposeMultiScreenApp() { //Manda a llamar a una clase
 
 @Composable
 fun SetupNavGraph(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "login_screen") {
+    NavHost(navController = navController, startDestination = "main_menu") {
         composable("main_menu") { MainMenuScreen(navController) } //Se importa la clase
         composable("home_screen") { HomeScreen(navController) }
         composable("test_screen") { TestScreen(navController) }
@@ -113,6 +114,7 @@ fun SetupNavGraph(navController: NavHostController) {
             )
         }
         composable("favorite_accounts_screen") { FavoriteAccountsScreen(navController) }
+        composable("camera_screen") { CameraScreen(navController) }
 
 
     }
