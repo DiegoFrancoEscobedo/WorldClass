@@ -48,6 +48,7 @@ import androidx.navigation.navArgument
 import com.example.worldclass.data.database.AppDatabase
 import com.example.worldclass.data.database.DatabaseProvider
 import com.example.worldclass.ui.screens.AccountsScreen
+import com.example.worldclass.ui.screens.AppScreen
 import com.example.worldclass.ui.screens.CameraScreen
 import com.example.worldclass.ui.screens.ComponentsScreen
 import com.example.worldclass.ui.screens.FavoriteAccountsScreen
@@ -115,6 +116,7 @@ fun SetupNavGraph(navController: NavHostController) {
         }
         composable("favorite_accounts_screen") { FavoriteAccountsScreen(navController) }
         composable("camera_screen") { CameraScreen(navController) }
+        composable("app_screen") { AppScreen(navController) }
 
 
     }
