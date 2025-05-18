@@ -56,6 +56,7 @@ import com.example.worldclass.ui.screens.HomeScreen
 import com.example.worldclass.ui.screens.LoginScreen
 import com.example.worldclass.ui.screens.MainMenuScreen
 import com.example.worldclass.ui.screens.ManageAccountScreen
+import com.example.worldclass.ui.screens.NotificationScreen
 import com.example.worldclass.ui.screens.TestScreen
 import com.example.worldclass.ui.screens.TwitchInterface
 import com.example.worldclass.ui.theme.WorldClassTheme
@@ -71,13 +72,14 @@ class MainActivity : ComponentActivity() {
         }catch(exception:Exception){
             Log.d("debug-db", "ERROR: $exception")
         }
+        val destination = intent?.getStringExtra("destination")
+
 
         //enableEdgeToEdge()
         //Que contenido visual tiene nuestra app
         setContent {
             WorldClassTheme {
-                ComposeMultiScreenApp()
-
+                ComposeMultiScreenApp(startDestination = destination)
 
             }
         }
@@ -87,15 +89,15 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun ComposeMultiScreenApp() { //Manda a llamar a una clase
+fun ComposeMultiScreenApp(startDestination: String?) {
     val navController = rememberNavController()
-    SetupNavGraph(navController = navController)
-
+    SetupNavGraph(navController, startDestination ?: "main_menu")
 }
 
+
 @Composable
-fun SetupNavGraph(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "main_menu") {
+fun SetupNavGraph(navController: NavHostController, startDestination: String) {
+    NavHost(navController = navController, startDestination = startDestination) {
         composable("main_menu") { MainMenuScreen(navController) } //Se importa la clase
         composable("home_screen") { HomeScreen(navController) }
         composable("test_screen") { TestScreen(navController) }
@@ -117,6 +119,9 @@ fun SetupNavGraph(navController: NavHostController) {
         composable("favorite_accounts_screen") { FavoriteAccountsScreen(navController) }
         composable("camera_screen") { CameraScreen(navController) }
         composable("app_screen") { AppScreen(navController) }
+        composable("notification_screen") { NotificationScreen(navController) }
+
+
 
 
     }
