@@ -2,8 +2,10 @@ package com.example.worldclass
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.fragment.app.FragmentActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -30,6 +32,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -49,6 +52,7 @@ import com.example.worldclass.data.database.AppDatabase
 import com.example.worldclass.data.database.DatabaseProvider
 import com.example.worldclass.ui.screens.AccountsScreen
 import com.example.worldclass.ui.screens.AppScreen
+import com.example.worldclass.ui.screens.BiometricScreen
 import com.example.worldclass.ui.screens.CameraScreen
 import com.example.worldclass.ui.screens.ComponentsScreen
 import com.example.worldclass.ui.screens.FavoriteAccountsScreen
@@ -61,7 +65,7 @@ import com.example.worldclass.ui.screens.TestScreen
 import com.example.worldclass.ui.screens.TwitchInterface
 import com.example.worldclass.ui.theme.WorldClassTheme
 
-class MainActivity : ComponentActivity() {
+class MainActivity : FragmentActivity() {
     lateinit var database: AppDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -120,6 +124,12 @@ fun SetupNavGraph(navController: NavHostController, startDestination: String) {
         composable("camera_screen") { CameraScreen(navController) }
         composable("app_screen") { AppScreen(navController) }
         composable("notification_screen") { NotificationScreen(navController) }
+        composable("biometric_screen"){
+            val context = LocalContext.current
+            BiometricScreen(navController, onAuthSuccess = {
+                Toast.makeText(context, "Authentication successful", Toast.LENGTH_SHORT).show()
+            })
+        }
 
 
 
