@@ -112,6 +112,9 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:2.10.1")
     implementation ("androidx.work:work-runtime:2.10.1")
 
+    implementation ("androidx.biometric:biometric:1.2.0-alpha05")
+
+
 
 
 
